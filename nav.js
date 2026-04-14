@@ -5,7 +5,6 @@ const NAV_LINKS = [
   { href: 'recruitment.html',  label: 'Recruitment' },
   { href: 'philanthropy.html', label: 'Philanthropy' },
   { href: 'alumni.html',       label: 'Alumni' },
-  { href: 'housing.html',      label: 'Housing' },
   { href: 'donate.html',       label: 'Donate', donate: true },
 ];
 
