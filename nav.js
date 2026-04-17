@@ -12,16 +12,16 @@ function buildNav() {
   const links = NAV_LINKS.map(l => {
     const active = (l.href === current) ? 'active' : '';
     const cls = l.donate ? 'nav-donate-btn' : '';
-    return <li><a href="${l.href}" class="${active} ${cls}">${l.label}</a></li>;
+    return `<li><a href="${l.href}" class="${active} ${cls}">${l.label}</a></li>`;
   }).join('');
-  return 
+  return `
   <nav class="nav">
     <a class="nav-logo" href="index.html">ΠΚΑ <span>Omega Chapter · University of Kentucky</span></a>
     <ul class="nav-links">${links}</ul>
-  </nav>;
+  </nav>`;
 }
 function buildFooter() {
-  return 
+  return `
   <footer class="footer">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -67,8 +67,12 @@ function buildFooter() {
         <a href="#" target="_blank">LinkedIn</a>
       </div>
     </div>
-  </footer>;
+  </footer>`;
 }
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.insertAdjacentHTML('afterbegin', buildNav());
+  document.body.insertAdjacentHTML('beforeend', buildFooter());
+});
 document.addEventListener('DOMContentLoaded', () => {
   document.body.insertAdjacentHTML('afterbegin', buildNav());
   document.body.insertAdjacentHTML('beforeend', buildFooter());
