@@ -17,7 +17,6 @@ function buildNav() {
   }).join('');
   return `
   <nav class="nav">
-<a class="nav-logo" href="index.html"><img src="" alt="Pike Logo" style="height:45px; vertical-align:middle; margin-right:10px;">ΠΚΑ <span>Omega Chapter · University of Kentucky</span></a>    <ul class="nav-links">${links}</ul>
   </nav>`;
 }
 
