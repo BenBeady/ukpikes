@@ -73,7 +73,3 @@ document.addEventListener('DOMContentLoaded', () => {
   document.body.insertAdjacentHTML('afterbegin', buildNav());
   document.body.insertAdjacentHTML('beforeend', buildFooter());
 });
-document.addEventListener('DOMContentLoaded', () => {
-  document.body.insertAdjacentHTML('afterbegin', buildNav());
-  document.body.insertAdjacentHTML('beforeend', buildFooter());
-});
