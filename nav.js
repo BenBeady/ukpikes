@@ -5,6 +5,7 @@ const NAV_LINKS = [
   { href: 'recruitment.html',  label: 'Recruitment' },
   { href: 'philanthropy.html', label: 'Philanthropy' },
   { href: 'alumni.html',       label: 'Alumni' },
+  { href: 'history.html',      label: 'History' },
   { href: 'donate.html',       label: 'Donate', donate: true },
 ];
 function buildNav() {
@@ -27,7 +28,7 @@ function buildFooter() {
       <div class="footer-brand">
         <h3>Pi Kappa Alpha — Omega Chapter</h3>
         <p>University of Kentucky<br>Brotherhood. Leadership. Excellence.<br><br>
-          @kentuckypikes &nbsp;|&nbsp; UKpikes.com</p>
+          @kentuckypikes &nbsp;|&nbsp; KentuckyPikes.com</p>
       </div>
       <div class="footer-col">
         <h4>Chapter</h4>
@@ -50,9 +51,9 @@ function buildFooter() {
       <div class="footer-col">
         <h4>Contact</h4>
         <ul>
-          <li><a href="mailto:info@ukpikes.com">info@ukpikes.com</a></li>
-          <li><a href="mailto:recruitment@ukpikes.com">recruitment@ukpikes.com</a></li>
-          <li><a href="mailto:alumni@ukpikes.com">alumni@ukpikes.com</a></li>
+          <li><a href="mailto:info@kentuckypikes.com">info@kentuckypikes.com</a></li>
+          <li><a href="mailto:recruitment@kentuckypikes.com">recruitment@kentuckypikes.com</a></li>
+          <li><a href="mailto:alumni@kentuckypikes.com">alumni@kentuckypikes.com</a></li>
           <li><a href="mailto:cvonallmen@gmail.com">Housing Corp</a></li>
         </ul>
       </div>
