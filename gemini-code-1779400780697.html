@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pikes Photo Archive</title>
+    <style>
+        :root {
+            --primary-color: #1a1a1a;
+            --accent-color: #0066cc;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .archive-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .archive-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* Search & Filter Controls */
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-bar:focus {
+            border-color: var(--accent-color);
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            background-color: #eee;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .photo-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .image-wrapper {
+            width: 100%;
+            height: 200px;
+            background-color: #e9ecef;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-info {
+            padding: 15px;
+        }
+
+        .photo-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            background: #f0f0f0;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #666;
+        }
+
+        .decade-badge {
+            font-size: 12px;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* Responsive Fixes */
+        @media (min-width: 768px) {
+            .controls {
+                flex-direction: row;
+                align-items: center;
+            }
+            .search-bar {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="archive-container">
+    <div class="archive-header">
+        <h1>Pikes Photo Archive</h1>
+        <p>Search through decades of history by metadata tags, titles, or years.</p>
+    </div>
+
+    <!-- Search and Filters Section -->
+    <div class="controls">
+        <input type="text" id="searchBar" class="search-bar" placeholder="Search by description, tags, keywords...">
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterDecade('all', this)">All Decades</button>
+            <button class="filter-btn" onclick="filterDecade('1970s', this)">1970s</button>
+            <button class="filter-btn" onclick="filterDecade('1980s', this)">1980s</button>
+            <button class="filter-btn" onclick="filterDecade('1990s', this)">1990s</button>
+            <button class="filter-btn" onclick="filterDecade('2000s', this)">2000s</button>
+        </div>
+    </div>
+
+    <!-- Gallery Output -->
+    <div class="gallery-grid" id="galleryGrid">
+        <!-- Images will inject here dynamically via JS -->
+    </div>
+</div>
+
+<script>
+    // --- PHOTO DATA CONFIGURATION ---
+    // Update the 'src' with your converted Google Drive direct image links
+    const photoArchive = [
+        {
+            title: "Summer Conclave Group Photo",
+            decade: "1980s",
+            tags: ["conclave", "group", "summer", "formal"],
+            src: "https://drive.google.com/uc?export=view&id=YOUR_FILE_ID_HERE_1"
+        },
+        {
+            title: "Chapter House Renovation",
+            decade: "1990s",
+            tags: ["house", "construction", "brothers"],
+            src: "https://drive.google.com/uc?export=view&id=YOUR_FILE_ID_HERE_2"
+        },
+        {
+            title: "Bid Day Celebration 1974",
+            decade: "1970s",
+            tags: ["bid day", "recruitment", "vintage"],
+            src: "https://drive.google.com/uc?export=view&id=YOUR_FILE_ID_HERE_3"
+        },
+        {
+            title: "Intramural Football Champions",
+            decade: "2000s",
+            tags: ["sports", "football", "trophy"],
+            src: "https://drive.google.com/uc?export=view&id=YOUR_FILE_ID_HERE_4"
+        }
+    ];
+
+    let currentDecade = 'all';
+
+    // Render Function
+    function renderGallery() {
+        const grid = document.getElementById('galleryGrid');
+        const searchTerm = document.getElementById('searchBar').value.toLowerCase();
+        
+        grid.innerHTML = ''; // Clear current display
+
+        const filteredPhotos = photoArchive.filter(photo => {
+            // Check decade match
+            const matchesDecade = currentDecade === 'all' || photo.decade === currentDecade;
+            
+            // Check search term match against title and metatags
+            const matchesSearch = photo.title.toLowerCase().includes(searchTerm) || 
+                                  photo.tags.some(tag => tag.toLowerCase().includes(searchTerm)) ||
+                                  photo.decade.includes(searchTerm);
+
+            return matchesDecade && matchesSearch;
+        });
+
+        // Build HTML for each photo card
+        filteredPhotos.forEach(photo => {
+            const card = document.createElement('div');
+            card.className = 'photo-card';
+            
+            const tagsHTML = photo.tags.map(tag => `<span class="tag">#${tag}</span>`).join('');
+
+            card.innerHTML = `
+                <div class="image-wrapper">
+                    <img src="${photo.src}" alt="${photo.title}" loading="lazy">
+                </div>
+                <div class="photo-info">
+                    <h3 class="photo-title">${photo.title}</h3>
+                    <div class="meta-tags">${tagsHTML}</div>
+                    <span class="decade-badge">${photo.decade}</span>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        if(filteredPhotos.length === 0) {
+            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #777;">No photos found matching your criteria.</p>';
+        }
+    }
+
+    // Filter Logic
+    function filterDecade(decade, buttonEl) {
+        currentDecade = decade;
+        
+        // Toggle active button state
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        buttonEl.classList.add('active');
+        
+        renderGallery();
+    }
+
+    // Event Listener for Real-time Search
+    document.getElementById('searchBar').addEventListener('input', renderGallery);
+
+    // Initial load
+    window.onload = renderGallery;
+</script>
+
+</body>
+</html>
